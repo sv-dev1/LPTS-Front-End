@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="%PUBLIC_URL%/PERK-fevicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+ 
+
+    <meta name="theme-color" content="#000000" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>PERK</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/4ed551d3cd.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/4ed551d3cd.js" crossorigin="anonymous"></script>
+
+    <!-- For multi select -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+ 
+  
+
+    <!-- End multi select -->
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+
+<script>
+
+
+$("#ReadinessLink").click(function(){
+  $("#ReadinessIDSection").show();
+  $("#GeometryIDSection").hide();
+  $("#AlgebraicIDSection").hide();
+});
+
+$("#GeometryLink").click(function(){
+  $("#GeometryIDSection").show();
+  $("#ReadinessIDSection").hide();
+  $("#AlgebraicIDSection").hide();
+});
+
+$("#AlgebraicLink").click(function(){
+  $("#ReadinessIDSection").hide();
+  $("#GeometryIDSection").hide();
+  $("#AlgebraicIDSection").show();
+});
+
+////////////////////////////////////////////////////////////////////////
+
+$("#ReadinessLinkDemo").click(function(){
+  $("#ReadinessIDSectionDemo").show();
+  $("#GeometryIDSectionDemo").hide();
+  $("#AlgebraicIDSectionDemo").hide();
+});
+
+$("#GeometryLinkDemo").click(function(){
+  $("#GeometryIDSectionDemo").show();
+  $("#ReadinessIDSectionDemo").hide();
+  $("#AlgebraicIDSectionDemo").hide();
+});
+
+$("#AlgebraicLinkDemo").click(function(){
+  $("#ReadinessIDSectionDemo").hide();
+  $("#GeometryIDSectionDemo").hide();
+  $("#AlgebraicIDSectionDemo").show();
+});
+
+////////////////////////////////////////////////////////////////////////
+
+$("#ReadinessLinkDemo2").click(function(){
+  $("#ReadinessIDSectionDemo2").show();
+  $("#GeometryIDSectionDemo2").hide();
+  $("#AlgebraicIDSectionDemo2").hide();
+});
+
+$("#GeometryLinkDemo2").click(function(){
+  $("#GeometryIDSectionDemo2").show();
+  $("#ReadinessIDSectionDemo2").hide();
+  $("#AlgebraicIDSectionDemo2").hide();
+});
+
+$("#AlgebraicLinkDemo2").click(function(){
+  $("#ReadinessIDSectionDemo2").hide();
+  $("#GeometryIDSectionDemo2").hide();
+  $("#AlgebraicIDSectionDemo2").show();
+});
+
+/////////////////////////////////////////////////////
+
+$("#ReadinessLinkELA").click(function(){
+  $("#ReadinessIDSectionELA").show();
+  $("#GeometryIDSectionELA").hide();
+  $("#AlgebraicIDSectionELA").hide();
+});
+
+$("#GeometryLinkELA").click(function(){
+  $("#GeometryIDSectionELA").show();
+  $("#ReadinessIDSectionELA").hide();
+  $("#AlgebraicIDSectionELA").hide();
+});
+
+$("#AlgebraicLinkELA").click(function(){
+  $("#ReadinessIDSectionELA").hide();
+  $("#GeometryIDSectionELA").hide();
+  $("#AlgebraicIDSectionELA").show();
+});
+
+/////////////////////////////////////////////////////
+
+$("#ReadinessLinkDemoELA").click(function(){
+  $("#ReadinessIDSectionDemoELA").show();
+  $("#GeometryIDSectionDemoELA").hide();
+  $("#AlgebraicIDSectionDemoELA").hide();
+});
+
+$("#GeometryLinkDemoELA").click(function(){
+  $("#GeometryIDSectionDemoELA").show();
+  $("#ReadinessIDSectionDemoELA").hide();
+  $("#AlgebraicIDSectionDemoELA").hide();
+});
+
+$("#AlgebraicLinkDemoELA").click(function(){
+  $("#ReadinessIDSectionDemoELA").hide();
+  $("#GeometryIDSectionDemoELA").hide();
+  $("#AlgebraicIDSectionDemoELA").show();
+});
+
+////////////////////////////////////////////////////////////////////////
+
+$("#ReadinessLinkDemo2ELA").click(function(){
+  $("#ReadinessIDSectionDemo2ELA").show();
+  $("#GeometryIDSectionDemo2ELA").hide();
+  $("#AlgebraicIDSectionDemo2ELA").hide();
+});
+
+$("#GeometryLinkDemo2ELA").click(function(){
+  $("#GeometryIDSectionDemo2ELA").show();
+  $("#ReadinessIDSectionDemo2ELA").hide();
+  $("#AlgebraicIDSectionDemoELA2").hide();
+});
+
+$("#AlgebraicLinkDemo2ELA").click(function(){
+  $("#ReadinessIDSectionDemo2ELA").hide();
+  $("#GeometryIDSectionDemo2ELA").hide();
+  $("#AlgebraicIDSectionDemo2ELA").show();
+});
+
+
+$(document).ready(function(){
+
+      
+
+  $('.subject-list ul li a').click(function(){
+    $('.subject-list li a').removeClass("active");
+    $(this).addClass("active");
+});
+});
+
+
+</script>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,5 @@
+1.) make Ican textbox a textarea
+2.)  Sort Implemenetation 
+3) Setings  Screens 
+4) Social login 
+5) Vaidations  

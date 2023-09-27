@@ -1,0 +1,418 @@
+import * as React from "react";
+import { Row, Input, Col, Button, Form, Select, Modal,Table } from "antd";
+import TextArea from "antd/lib/input/TextArea";
+import AddCustomer from "./AddCustomer";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+
+const { Option } = Select;
+
+function handleChange(value) {
+  console.log(`selected ${value}`);
+}
+
+const { confirm } = Modal;
+
+class HomeInsurancePolicy extends React.Component {
+
+  constructor(){
+    super();
+    this.state={
+      searchBox:null,
+      gotData:false,
+      visible: false,
+	 showHeader:false,
+      visibleSearch: false,
+      api:"http://112.196.3.218:8091/GetClientDetailsbyid/1",
+      access:'',
+      a:false,
+      riskCover:'',
+      riskItem:'',
+      coverType:'',
+      data:[],
+  columns : [
+{
+  key:'riskcover',
+  title: 'Risk Cover',
+  dataIndex: 'riskcover',
+},
+{
+  key:'riskitem',
+  title: 'RIsk Item',
+  dataIndex: 'riskitem',
+},
+{
+  key:'address',
+  title: 'Address',
+  dataIndex: 'address',
+},
+{
+  key:'covertype',
+  title: 'Cover Type',
+  dataIndex: 'covertype',
+},
+{
+  key:'coveramount',
+  title: 'Cover Amount',
+  dataIndex: 'coveramount',
+},
+{
+  key:'rate',
+  title: 'Rate(%)',
+  dataIndex: 'rate',
+}
+]
+ }
+  this.updateInput = this.updateInput.bind(this);
+  this.handleChange = this.handleChange.bind(this);
+  this.setVisible = this.setVisible.bind(this);
+ this.showHeader = this.showHeader.bind(this);
+  this.setVisibleFalse = this.setVisibleFalse.bind(this);
+  this.hideModal = this.hideModal.bind(this);
+  this.setVisibleSearch = this.setVisibleSearch.bind(this);
+  this.riskcover = this.riskcover.bind(this);
+  this.riskitem = this.riskitem.bind(this);
+  this.covertype = this.covertype.bind(this);
+  this.setDataSource = this.setDataSource.bind(this);
+  }; 
+
+  // Functions for search functionality (if data not found)
+  // Hide function to hide the modal after user clicked on cancel button
+  hideModal() {
+    this.setState({
+      visibleSearch: false,
+    });
+  };
+  
+  
+
+ 
+  // Redirecting to another model where client can add customer to the database
+  setVisibleSearch() {
+       this.setState({
+      visibleSearch: false,
+    });
+    this.setState({ visible: true });
+  }
+
+showHeader() {
+    this.setState({ showHeader: true });
+  }
+  // Functions for Modal functioanlity to add customers
+  setVisible() {
+    this.setState({ visible: true });
+  }
+  setVisibleFalse() {
+    this.setState({ visible: false });
+  }
+
+  // Functions for search functionality 
+   handleChange({ target }) {
+    this.setState({
+      [target.name]: target.value
+    });
+  }
+  
+  updateInput(){
+  const current=[];
+  fetch('http://112.196.3.218:8091/GetClientDetailsbyid/1')
+      .then((response) => response.json())
+      .then((data) => current.push(data.result));
+  const userRoles = JSON.parse(localStorage.getItem("roles"));
+  console.log(userRoles);
+  console.log(current);
+//   const numx = current.map((n)=> n);
+//   console.log(numx)
+//   for (let i = 0; i < userRoles.length; i++) {
+//   if (userRoles[i].module_name === this.state.searchBox) {
+//   this.setState({access:userRoles[i].access_level})
+//   this.setState({a:true})
+//   alert(this.state.a)
+//   }
+// }
+// if(this.state.a == false){
+//   this.setState({visibleSearch:true})
+// }
+  // if(this.state.searchBox == "Mayank"){
+  //    alert("Customer Found")
+  //  }
+  //  else{
+  //      this.setState({
+  //     visibleSearch: true,
+  //   });
+  // }  
+}
+
+  riskcover(value){
+    this.state.riskCover = value;
+    console.log(this.state.riskCover)
+  }
+
+  riskitem(value){
+    this.state.riskItem = value;
+    console.log(this.state.riskItem)
+  }
+
+  covertype(value){
+    this.state.coverType = value;
+    console.log(this.state.coverType)
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        const newProduct = {
+          riskcover : this.state.riskCover,
+          riskitem : this.state.riskItem,
+          covertype : this.state.coverType,
+          address : values.address,
+          coveramount : values.coveramount,
+          rate : values.rate
+        };
+        // Converting object into array to be used in table as dataSource
+        this.state.data.push(newProduct) ;
+        console.log(this.state.data);
+        // this.setDataSource(...pre,newProduct)
+       }
+    });
+  }
+
+  setDataSource(){
+  alert("function called")
+  }
+
+  render() {
+    const { getFieldDecorator } = this.props.form;
+    return (
+      <div>
+        <h5
+          style={{
+            color: "#0C1362",
+            fontWeight: "300",
+            fontSize: "16px",
+            marginTop: "20px",
+          }}
+        >
+          Product Name:<label>Home Insurance</label>
+        </h5>
+        <h3
+          style={{
+            color: "#0C1362",
+            fontWeight: "600",
+            fontSize: "24px",
+            marginTop: "30px",
+          }}
+        >
+          Basic Customer Details
+        </h3>
+        <Row gutter={12}>
+          <Col xs={12} sm={24} md={24} lg={24}>
+            <div
+              className="form-item"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div className="flex">
+                <Input placeholder="Search by UUID" name="searchBox" value={this.state.searchBox} onChange={this.handleChange}/>
+                <Button
+                  size="default"
+                  style={{ backgroundColor: "#096dd9", color: "#fff" }} 
+                  onClick={this.updateInput}>
+                  Search
+                </Button>
+                 <Modal title="No data found !!" visible={this.state.visibleSearch} onOk={this.setVisibleSearch} onCancel={this.hideModal} okText="Add" cancelText="Cancel">
+                <h3>Do you want to add new customer ?</h3>
+                 </Modal>
+              </div>
+              <Button
+                size="default"
+                style={{
+                  marginLeft: "auto",
+                  color: "#fd7e14",
+                  borderColor: "#fd7e14",                 
+                }}
+               onClick={this.setVisible}>
+                Add Customer
+              </Button>
+              <Modal title="Add Customer" centered visible={this.state.visible}  footer={null} onOk={this.setVisibleFalse} onCancel={this.setVisibleFalse} width={1000}>
+              <AddCustomer/>
+              </Modal>
+            </div>
+          </Col>
+        </Row>
+        <Row gutter={(2, [12])} style={{ marginTop: "10px" }}>
+          <Col xs={24} md={12} lg={4}>
+            <Form.Item label="Entity Type">
+              <Input placeholder="Enter Entity Type" value={this.state.access} disabled/>
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={4}>
+            <Form.Item label="First Name">
+              <Input placeholder="Enter Firstname"/>
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={4}>
+            <Form.Item label="Sur Name">
+              <Input placeholder="Enter surname" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={4}>
+            <Form.Item label="Corporate Name">
+              <Input placeholder="Enter Corporate name" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={4}>
+            <Form.Item label="Contact Number">
+              <Input placeholder="eg:987654321" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={4}>
+            <Form.Item label="Email Address">
+              <Input placeholder="abc@gmail.com " />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={2}>
+            <Form.Item label="Age">
+              <Input placeholder="eg:24" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={2}>
+            <Form.Item label="Gender">
+              <Input placeholder="Male/Female" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={8}>
+            <Form.Item label="Address 1">
+              <TextArea placeholder="Enter Address" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={8}>
+            <Form.Item label=" Address 2">
+              <TextArea placeholder="Enter Address" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={2}>
+            <Form.Item label="Suburb">
+              <Input placeholder="Enter Suburb" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={2}>
+            <Form.Item label="City">
+              <Input placeholder="Enter City" />
+            </Form.Item>
+          </Col>
+        </Row>
+        <div>
+          <h3
+            style={{
+              color: "#0C1362",
+              fontWeight: "600",
+              fontSize: "24px",
+              marginTop: "20px",
+            }}
+          >
+            Product Details
+          </h3>
+          <Form onSubmit={this.handleSubmit}>
+          <Row gutter={[8, 24]} style={{ marginTop: "10px" }}>
+            <Col xs={24} md={12} lg={4}>
+              <Form.Item>
+              <Select defaultValue="Risk Cover" onChange={this.riskcover} style={{ display: "inline" }}>
+                <Option value="Fire">Fire</Option>
+                <Option value="Lightening">Lightning</Option>
+                <Option value="Exploding">Exploding</Option>
+                <Option value="Flooding">Flooding</Option>
+                <Option value="Theft">Theft</Option>
+              </Select>
+              </Form.Item>
+            </Col>
+            
+            <Col xs={24} md={12} lg={4}>
+            <Form.Item>
+              <Select defaultValue="Risk Item" onChange={this.riskitem} style={{ display: "inline" }}>
+                <Option value="Building">Building</Option>
+                <Option value="Contents">Contents</Option>
+                <Option value="Cellphone+Tablets">Cellphone+Tablets</Option>
+                <Option value="Laptop">Laptop</Option>
+                <Option value="Jewellery">Jewellery</Option>
+                <Option value="Art">Art</Option>
+              </Select>
+              </Form.Item>
+            </Col>
+
+            <Col xs={24} md={12} lg={4}>
+              <Form.Item>
+               {getFieldDecorator("address", {
+                              rules: [
+                                {
+                                  required: true,
+                                  message: "Please input Address!",
+                                  whitespace: false,
+                                },
+                              ],
+                            })(<Input placeholder="Address" />)}
+              </Form.Item>
+            </Col>
+
+            <Col xs={24} md={12} lg={4}>
+              <Select defaultValue="Cover Type" onChange={this.covertype} style={{ display: "inline" }}>
+                <Option value="Sum Assured">Sum Assured</Option>
+                <Option value="Agreed Value">Agreed Value</Option>
+              </Select>
+            </Col>
+
+            <Col xs={24} md={12} lg={4}>
+              <Form.Item>
+               {getFieldDecorator("coveramount", {
+                              rules: [
+                                {
+                                  required: true,
+                                  message: "Please input Cover amount!",
+                                  whitespace: false,
+                                },
+                              ],
+                            })(<Input placeholder="Cover amount" />)}
+              </Form.Item>
+            </Col>
+
+            <Col xs={24} md={12} lg={2}>
+              <Form.Item>
+               {getFieldDecorator("rate", {
+                              rules: [
+                                {
+                                  required: true,
+                                  message: "Please input Rate!",
+                                  whitespace: false,
+                                },
+                              ],
+                            })(<Input placeholder="Rate(%)" />)}
+              </Form.Item>
+            </Col>
+
+            <Col xs={24} md={12} lg={2}>
+              <Button type="dashed" htmlType="submit" size="default" style={{color: "#fd7e14",borderColor: "#fd7e14",}}>
+                Add
+              </Button>
+            </Col>
+          </Row>
+          </Form>
+        </div>
+        <div>
+        <Table    />
+        </div>
+      </div>
+    );
+  }
+}
+
+
+const WrappedHomeInsurancePolicy = Form.create({ name: "Homeinsurance_list" })(
+  HomeInsurancePolicy
+);
+
+export default WrappedHomeInsurancePolicy;
+
+

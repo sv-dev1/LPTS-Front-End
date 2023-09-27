@@ -1,0 +1,273 @@
+import * as React from "react";
+import { Row, Input, Col, Button, Form, Select, Modal } from "antd";
+import TextArea from "antd/lib/input/TextArea";
+import AddCustomer from "./AddCustomer";
+
+
+const { Option } = Select;
+
+function handleChange(value) {
+  console.log(`selected ${value}`);
+}
+
+const { confirm } = Modal;
+
+class BasicGrid extends React.Component {
+
+  constructor(){
+    super();
+    this.state={
+      searchBox:null,
+      gotData:false,
+      visible: false,
+    }
+  this.updateInput = this.updateInput.bind(this);
+  this.handleChange = this.handleChange.bind(this);
+  this.setVisible = this.setVisible.bind(this);
+  this.setVisibleFalse = this.setVisibleFalse.bind(this);
+  };
+
+  setVisible() {
+   
+    this.setState({ visible: true });
+  }
+  setVisibleFalse() {
+    this.setState({ visible: false });
+  }
+
+   handleChange({ target }) {
+    this.setState({
+      [target.name]: target.value
+    });
+  }
+
+  updateInput(){
+   if(this.state.searchBox == "Mayank"){
+     alert("Data Found")
+   }
+   else{
+    this.showConfirm();
+   }
+  } 
+
+  showConfirm() {
+  confirm({
+    title: 'No data found!!',
+    content: 'Add customer',
+    onOk() {
+     
+    alert("Ok clicked")  
+    this.setVisible()
+    },
+    onCancel() {
+
+    },
+  });
+}
+
+  render() {
+    return (
+      <div>
+        <h5
+          style={{
+            color: "#0C1362",
+            fontWeight: "300",
+            fontSize: "16px",
+            marginTop: "20px",
+          }}
+        >
+          Product Name:<label>Home Insurance</label>
+        </h5>
+        <h3
+          style={{
+            color: "#0C1362",
+            fontWeight: "600",
+            fontSize: "24px",
+            marginTop: "30px",
+          }}
+        >
+          Basic Customer Details
+        </h3>
+        <Row gutter={12}>
+          <Col xs={12} sm={24} md={24} lg={24}>
+            <div
+              className="form-item"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div className="flex">
+                <Input placeholder="Search by UUID" name="searchBox" value={this.state.searchBox} onChange={this.handleChange}/>
+                <Button
+                  size="default"
+                  style={{ backgroundColor: "#096dd9", color: "#fff" }} 
+                  onClick={this.updateInput}>
+                  Search
+                </Button>
+              </div>
+
+              <Button
+                size="default"
+                style={{
+                  marginLeft: "auto",
+                  color: "#fd7e14",
+                  borderColor: "#fd7e14",                 
+                }}
+               onClick={this.setVisible}>
+                Add Customer
+              </Button>
+              <Modal title="Add Customer" centered visible={this.state.visible} onOk={this.setVisibleFalse} onSubmit={this.setVisibleFalse} width={1000}>
+              <AddCustomer/>
+              </Modal>
+            </div>
+          </Col>
+        </Row>
+        <Row gutter={(2, [12])} style={{ marginTop: "10px" }}>
+          <Col xs={24} md={12} lg={4}>
+            <Form.Item label="Entity Type">
+              <Input placeholder="Enter Entity Type" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={4}>
+            <Form.Item label="First Name">
+              <Input placeholder="Enter Firstname" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={4}>
+            <Form.Item label="Sur Name">
+              <Input placeholder="Enter surname" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={4}>
+            <Form.Item label="Corporate Name">
+              <Input placeholder="Enter Corporate name" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={4}>
+            <Form.Item label="Contact Number">
+              <Input placeholder="eg:987654321" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={4}>
+            <Form.Item label="Email Address">
+              <Input placeholder="abc@gmail.com " />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={2}>
+            <Form.Item label="Age">
+              <Input placeholder="eg:24" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={2}>
+            <Form.Item label="Gender">
+              <Input placeholder="Male/Female" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={8}>
+            <Form.Item label="Address 1">
+              <TextArea placeholder="Enter Address" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={8}>
+            <Form.Item label=" Address 2">
+              <TextArea placeholder="Enter Address" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={2}>
+            <Form.Item label="Suburb">
+              <Input placeholder="Enter Suburb" />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12} lg={2}>
+            <Form.Item label="City">
+              <Input placeholder="Enter City" />
+            </Form.Item>
+          </Col>
+        </Row>
+        <div>
+          <h3
+            style={{
+              color: "#0C1362",
+              fontWeight: "600",
+              fontSize: "24px",
+              marginTop: "20px",
+            }}
+          >
+            Product Details
+          </h3>
+          <Row gutter={[8, 24]} style={{ marginTop: "10px" }}>
+            <Col xs={24} md={12} lg={4}>
+              <Select
+                defaultValue="Risk Cover"
+                onChange={handleChange}
+                style={{ display: "inline" }}
+              >
+                <Option value="Fire">Fire</Option>
+                <Option value="Lightening">Lightning</Option>
+                <Option value="Exploding">Exploding</Option>
+                <Option value="Flooding">Flooding</Option>
+                <Option value="Theft">Theft</Option>
+              </Select>
+            </Col>
+            <Col xs={24} md={12} lg={4}>
+              <Select
+                defaultValue="Risk Item"
+                onChange={handleChange}
+                style={{ display: "inline" }}
+              >
+                <Option value="Building">Building</Option>
+                <Option value="Contents">Contents</Option>
+                <Option value="Cellphone+Tablets">Cellphone+Tablets</Option>
+                <Option value="Laptop">Laptop</Option>
+                <Option value="Jewellery">Jewellery</Option>
+                <Option value="Art">Art</Option>
+              </Select>
+            </Col>
+            <Col xs={24} md={12} lg={4}>
+              <Form.Item>
+                <TextArea placeholder="Enter Address" disabled />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={12} lg={4}>
+              <Select
+                defaultValue="Cover Type"
+                onChange={handleChange}
+                style={{ display: "inline" }}
+              >
+                <Option value="Sum Assured">Sum Assured</Option>
+                <Option value="LAgreed Value">Agreed Value</Option>
+              </Select>
+            </Col>
+            <Col xs={24} md={12} lg={4}>
+              <Form.Item>
+                <Input placeholder="Cover Amount" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={12} lg={2}>
+              <Form.Item>
+                <Input placeholder="Rate(%)" />
+              </Form.Item>
+            </Col>
+
+            <Col xs={24} md={12} lg={2}>
+              <Button
+                type="dashed"
+                size="default"
+                style={{
+                  color: "#fd7e14",
+                  borderColor: "#fd7e14",
+                }}
+              >
+                Add
+              </Button>
+            </Col>
+          </Row>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default BasicGrid;
